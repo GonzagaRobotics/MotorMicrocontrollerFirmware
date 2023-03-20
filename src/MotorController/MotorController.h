@@ -32,23 +32,21 @@ class MotorController{
         char getSide();
     private:
         int pin1;
-        //int pin2;
         int pwmChannel1;
-        //int pwmChannel2;
         char side;
 
         int freq = 333;
         int resolution = 8;
         int maxDutyCycle = 255;
 
-        float maxVeloHigh = 1.65; // forwards
-        float restVeloHigh = 1.5; // stopped
-        float minVeloHigh = 1.35; // max backwards
+        const float maxVeloHigh = 1.65; // forwards
+        const float restVeloHigh = 1.5; // stopped
+        const float minVeloHigh = 1.35; // max backwards
 
         int calcDutyCycleForwards(float);
         int calcDutyCycleBackwards(float);
 
-        float returnAbs(float);
+        //float returnAbs(float);
 };
 
 #endif
