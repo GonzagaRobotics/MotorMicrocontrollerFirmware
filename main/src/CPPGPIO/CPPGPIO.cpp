@@ -22,17 +22,17 @@ MotorSet* addPinsToLeftMotorSet(){
 
     // Pins for the first motor (front left)
     int motor1Pin1 = 4;
-    int motor1PWMChannel1 = 3;
+    int motor1PWMChannel1 = 1;
     char motor1Side = 'l';
 
     // Pins for the second motor (middle left)
     int motor2Pin1 = 12;
-    int motor2PWMChannel1 = 4;
+    int motor2PWMChannel1 = 2;
     char motor2Side = 'l';
 
     // Pins for the third motor (back left)
     int motor3Pin1 = 14;
-    int motor3PWMChannel1 = 5;
+    int motor3PWMChannel1 = 3;
     char motor3Side = 'l';
 
     // Creating pointer to new MotorSet
@@ -57,17 +57,17 @@ MotorSet* addPinsToRightMotorSet(){
 
     // Pins for the fourth motor (front right)
     int motor4Pin1 = 15;
-    int motor4PWMChannel1 = 0;
+    int motor4PWMChannel1 = 4;
     char motor4Side = 'r';
 
     // Pins for the fifth motor (middle right)
     int motor5Pin1 = 25;
-    int motor5PWMChannel1 = 1;
+    int motor5PWMChannel1 = 5;
     char motor5Side = 'r';
 
     // Pins for the sixth motor (back right)
     int motor6Pin1 = 26;
-    int motor6PWMChannel1 = 2;
+    int motor6PWMChannel1 = 6;
     char motor6Side = 'r';
 
     // Creating pointer to new MotorSet
