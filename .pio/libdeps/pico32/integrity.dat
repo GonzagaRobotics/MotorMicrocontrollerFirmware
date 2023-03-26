@@ -1,0 +1,5 @@
+arduino-libraries/WiFiNINA@^1.8.13
+https://github.com/micro-ROS/micro_ros_platformio
+SPI
+WiFi
+https://github.com/micro-ROS/micro_ros_arduino
