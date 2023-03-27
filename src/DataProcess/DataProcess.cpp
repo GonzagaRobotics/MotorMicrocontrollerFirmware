@@ -15,7 +15,7 @@ Input: Array of 5 floats, pointers to left and right motor set
 Output: None
 Description: Processes the input array and calls necessary functions
 */
-void dataHandling(float dataArr[], MotorSet* leftSet, MotorSet* rightSet){
+void dataHandling(volatile float dataArr[], MotorSet* leftSet, MotorSet* rightSet){
     // Setting values to variables for easier use in functions (and reading clarity)
     float leftTrigger = dataArr[0];
     float rightTrigger = dataArr[1];

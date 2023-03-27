@@ -21,18 +21,18 @@ MotorSet* addPinsToLeftMotorSet(){
     // Note: Be careful not to use the pin that ROS is using to communicate 
 
     // Pins for the first motor (front left)
-    int motor1Pin1 = 33;
-    int motor1PWMChannel1 = 1;
+    int motor1Pin1 = 4;
+    int motor1PWMChannel1 = 3;
     char motor1Side = 'l';
 
     // Pins for the second motor (middle left)
-    int motor2Pin1 = -1;
-    int motor2PWMChannel1 = 2;
+    int motor2Pin1 = 12;
+    int motor2PWMChannel1 = 4;
     char motor2Side = 'l';
 
     // Pins for the third motor (back left)
-    int motor3Pin1 = -1;
-    int motor3PWMChannel1 = 4;
+    int motor3Pin1 = 14;
+    int motor3PWMChannel1 = 5;
     char motor3Side = 'l';
 
     // Creating pointer to new MotorSet
@@ -40,8 +40,8 @@ MotorSet* addPinsToLeftMotorSet(){
 
     // Adding motors to left MotorSet
     leftMotorSet->addMotor(motor1Pin1, motor1PWMChannel1, motor1Side);
-    //leftMotorSet->addMotor(motor2Pin1, motor2PWMChannel1, motor2Side);
-    //leftMotorSet->addMotor(motor3Pin1, motor3PWMChannel1, motor3Side);
+    leftMotorSet->addMotor(motor2Pin1, motor2PWMChannel1, motor2Side);
+    leftMotorSet->addMotor(motor3Pin1, motor3PWMChannel1, motor3Side);
 
     return leftMotorSet;
 }
@@ -56,18 +56,18 @@ MotorSet* addPinsToRightMotorSet(){
     // Note: Be careful not to use the pin that ROS is using to communicate 
 
     // Pins for the fourth motor (front right)
-    int motor4Pin1 = 32;
+    int motor4Pin1 = 15;
     int motor4PWMChannel1 = 0;
     char motor4Side = 'r';
 
     // Pins for the fifth motor (middle right)
-    int motor5Pin1 = -1;
-    int motor5PWMChannel1 = 2;
+    int motor5Pin1 = 25;
+    int motor5PWMChannel1 = 1;
     char motor5Side = 'r';
 
     // Pins for the sixth motor (back right)
-    int motor6Pin1 = -1;
-    int motor6PWMChannel1 = 4;
+    int motor6Pin1 = 26;
+    int motor6PWMChannel1 = 2;
     char motor6Side = 'r';
 
     // Creating pointer to new MotorSet
@@ -75,8 +75,8 @@ MotorSet* addPinsToRightMotorSet(){
 
     // Adding motors to right MotorSet
     rightMotorSet->addMotor(motor4Pin1, motor4PWMChannel1, motor4Side);
-    //rightMotorSet->addMotor(motor5Pin1, motor5PWMChannel1, motor5Side);
-    //rightMotorSet->addMotor(motor6Pin1, motor6PWMChannel1, motor6Side);
+    rightMotorSet->addMotor(motor5Pin1, motor5PWMChannel1, motor5Side);
+    rightMotorSet->addMotor(motor6Pin1, motor6PWMChannel1, motor6Side);
 
     return rightMotorSet;
 }

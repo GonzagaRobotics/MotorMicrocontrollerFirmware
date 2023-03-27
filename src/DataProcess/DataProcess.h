@@ -27,7 +27,7 @@ const float SPINNING_SPEED = 0.5;
 const float CHANGE_THRESHOLD = 0.005;
 
 
-void dataHandling(float[], MotorSet*, MotorSet*);
+void dataHandling(volatile float[], MotorSet*, MotorSet*);
 
 float setTriggerWheelSpeed(float);
 
