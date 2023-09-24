@@ -6,11 +6,14 @@ Date Modified: 2/2/23
 Description: Header file for DataProcess.cpp
 */
 
+
 #ifndef DATA_PROCESS
 #define DATA_PROCESS
 
+
 #include "../MotorSet/MotorSet.h"
 #include <Arduino.h>
+
 
 const float TRIGGER_RESTING_THRESHOLD = 0.95;
 const float TRIGGER_COMPRESSED_THRESHOLD = -0.95;
@@ -21,10 +24,9 @@ const float DPAD_RESTING = 0;
 const float DPAD_LEFT = 1;
 const float DPAD_RIGHT = -1;
 
+
 const float BACKWARDS_SPEED = 0.5;
 const float SPINNING_SPEED = 0.5;
-
-const float CHANGE_THRESHOLD = 0.005;
 
 
 void dataHandling(volatile float[], MotorSet*, MotorSet*);
@@ -32,5 +34,6 @@ void dataHandling(volatile float[], MotorSet*, MotorSet*);
 float setTriggerWheelSpeed(float);
 
 float absValue(float);
+
 
 #endif

@@ -3,10 +3,12 @@ Title: DataProcess.cpp
 Author: Christine Cabero, Ben Pauka, Matthew VonWahlde, Cameron Zheng
 Date Created: 2/2/23
 Date Modified: 2/2/23
-Description: Function definitions for data handling
+Description: Function definitions for handling the data inputted from the controller
 */
 
+
 #include "DataProcess.h"
+
 
 /*
 Function: dataHandling
@@ -80,36 +82,8 @@ void dataHandling(volatile float dataArr[], MotorSet* leftSet, MotorSet* rightSe
         // Set right wheels forward
         rightSpeedCurrent = setTriggerWheelSpeed(rightTrigger);
     }
-
-    /* If leftSpeedCurrent is sufficiently different than leftSpeedPrevious,
-    then execute the motor command, either stop if 0, drive forward if positive,
-    or drive backwards if negative*/ 
-    //If leftSpeedCurrent is different than leftSpeedPrevious, or leftSpeed is stopped and didnt already stop, then write to motor
-    /*
-    if (absValue(leftSpeedCurrent - leftSpeedPrevious) > CHANGE_THRESHOLD || (leftSpeedCurrent == 0 && leftSpeedPrevious != 0)) {
-        if (leftSpeedCurrent == 0) { //If 0, then stop
-            leftSet->stop();
-        } else if (leftSpeedCurrent > 0) {
-            leftSet->driveForwards(leftSpeedCurrent); //If positive, then go forward
-        } else {
-            leftSet->driveBackwards(-leftSpeedCurrent); //If negative, then go backwards
-        }
-        leftSpeedPrevious = leftSpeedCurrent; //Remember current speed for next loop
-    }
-    //If rightSpeedCurrent is different than rightSpeedPrevious, or rightSpeed is stopped and didnt already stop, then write to motor
-    if (absValue(rightSpeedCurrent - rightSpeedPrevious) > CHANGE_THRESHOLD || (rightSpeedCurrent == 0 && rightSpeedPrevious != 0)) {
-        if (rightSpeedCurrent == 0) { //If 0, then stop
-            rightSet->stop();
-        } else if (rightSpeedCurrent > 0) {
-            rightSet->driveForwards(rightSpeedCurrent); //If positive, then go forward
-        } else {
-            rightSet->driveBackwards(-rightSpeedCurrent); //If negative, then go backwards
-        }
-        rightSpeedPrevious = rightSpeedCurrent; //Remember current speed for next loop
-    }
-    */
    
-   if (leftSpeedCurrent == 0) { //If 0, then stop
+    if (leftSpeedCurrent == 0) { //If 0, then stop
         leftSet->stop();
     } else if (leftSpeedCurrent > 0) {
         leftSet->driveForwards(leftSpeedCurrent); //If positive, then go forward
@@ -124,10 +98,6 @@ void dataHandling(volatile float dataArr[], MotorSet* leftSet, MotorSet* rightSe
     } else {
         rightSet->driveBackwards(-rightSpeedCurrent); //If negative, then go backwards
     }
-
-
-
-    
 }
 
 
@@ -145,6 +115,7 @@ float setTriggerWheelSpeed(float triggerVal){
     // Return trigger value converted into a float between 0 (stopped) and 1 (full speed)
     return triggerVal * -0.5 + 0.5;
 }
+
 
 /*
 Function: absValue

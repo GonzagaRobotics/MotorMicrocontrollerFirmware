@@ -5,7 +5,9 @@ Date Created: 11/12/22
 Date Modified: 2/2/23
 Description: Function file for MotorSet, controls the motors on one side of the
             rover (i.e. the right set of motors or the left set)
+            Motor set refers to a collection of motor controllers.
 */
+
 
 #include "MotorSet.h"
 
@@ -57,70 +59,3 @@ void MotorSet::driveForwards(float speed){
         motorSet[i]->motorForwards(speed); 
     }
 }
-
-/*
-Function: driveBackwards()
-Input: A speed to go backwards
-Output: Changes all motors to the value
-Description:
-*/
-void MotorSet::driveBackwards(float speed){
-    for (int i = 0; i < numMotors; i++) {
-        // In set[] from 0 to numMotors, set each motor to backwards at the same speed
-        motorSet[i]->motorBackwards(speed); 
-    }
-}
-
-/*
-Function: stop()
-Input: N/A
-Output: N/A
-Description: Stops motors
-*/
-void MotorSet::stop(){
-    for (int i = 0; i < numMotors; i++) {
-        // In set[] from 0 to numMotors, set each motor to stop
-        motorSet[i]->motorStop(); 
-    }
-}
-
-/*
-Function: spinLeft()
-Input: Turning speed
-Output: Rover spins left
-Description: Spins left
-*/
-/*
-void MotorSet::spinLeft(float speed){
-    for (int i = 0; i < numMotors; i++) {
-        // If the motor is on the left
-        if (motorSet[i]->getSide() == 'l') { 
-            // Then move backwards
-            motorSet[i]->motorBackwards(speed); 
-        } else {
-            // Else motor is on the right, so move forwards
-            motorSet[i]->motorForwards(speed); 
-        }
-    }
-}
-*/
-/*
-Function: spinRight()
-Input: Turning speed
-Output: Rover spins right
-Description: Spins right
-*/
-/*
-void MotorSet::spinRight(float speed){
-    for (int i = 0; i < numMotors; i++) {
-        // If the motor is on the right
-        if (motorSet[i]->getSide() == 'r') { 
-            // Then move backwards
-            motorSet[i]->motorBackwards(speed); 
-        } else {
-            // Else motor is on the right, so move forwards
-            motorSet[i]->motorForwards(speed); 
-        }
-    }
-}
-*/

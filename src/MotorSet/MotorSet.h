@@ -5,13 +5,17 @@ Date Created: 11/12/22
 Date Modified: 2/2/23
 Description: Header file for MotorSet
 */
+
+
 #ifndef MOTOR_SET_H
 #define MOTOR_SET_H
+
 
 #include "../MotorController/MotorController.h"
 
 
-#define maxMotors 3
+#define maxMotors 3 // Max of 3 motors per side
+
 
 /*
 Function: MotorSet
@@ -26,15 +30,13 @@ class MotorSet{
         void driveForwards(float);
         void driveBackwards(float);
         void stop();
-        //void spinLeft(float);
-        //void spinRight(float);
 
         void addMotor(int, int, char);
     private:
         MotorController* motorSet[maxMotors];
         int numMotors = 0;
-        char motorSide;
-        
+        char motorSide;  
 };
+
 
 #endif

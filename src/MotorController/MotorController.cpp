@@ -4,7 +4,7 @@ Author: Christine Cabero, Ben Pauka, Matthew VonWahlde, Cameron Zheng
 Date Created: 11/12/22
 Date Modified: 2/2/23
 Description: Functions for Motorcontroller
-
+             Motor controller class refers to each individual motor controller (1 for each wheel)
 */
 
 #include "MotorController.h"
@@ -17,7 +17,6 @@ Input: pin1, pin2, pinEn, pwm channel, side the motor is on (left = 'l', right =
 Output: N/A
 Description: Sets up the pins for the motorcontroller and tells which side 
              motors to communicate with
-
 */
 MotorController::MotorController(int pin1, int pwmChannel1, char side){
     // Setting up pin 1
@@ -33,6 +32,7 @@ MotorController::MotorController(int pin1, int pwmChannel1, char side){
     // Setting up the pwm channel 1 and attaching to pin 1
     setUpPWMChannel(pin1, pwmChannel1, freq, resolution);
 }
+
 
 /*
 Function: motorForwards()
@@ -56,12 +56,12 @@ void MotorController::motorForwards(float speed){
     }
 }
 
+
 /*
 Function: motorBackwards()
 Input: speed for the wheel (between 0 and 1)
 Output: N/A
 Description: sends a signal to the motor to spin the right or left wheel backwards
-
 */
 void MotorController::motorBackwards(float speed){
     // Making sure speed is between 0 and 1, inclusive
@@ -146,13 +146,3 @@ char MotorController::getSide(){
     // returns what side the motor is on
     return side;
 }
-
-/*
-float returnAbs(float num){
-    if(num >= 0)
-        return num;
-    else
-        return -1*num;
-
-}
-*/

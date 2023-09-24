@@ -3,15 +3,14 @@ Title: CPPGPIO.cpp
 Author: Christine Cabero, Ben Pauka, Matthew VonWahlde, Cameron Zheng
 Date Created: 12/3/22
 Date Modified: 2/2/23
-Description: Function file for ESP32 GPIO in C++
+Description: This file sets up the GPIO pins for the ESP 32 controlling the motors
 */
 
-// Check ctre/Phoenix.h
 
 #include "CPPGPIO.h"
 
 
-// This function adds motors to the left microcontroller
+// This function adds GPIO pins for the left set of the motors
 // Inputs: None
 // Outputs: pointer to the left MotorSet
 MotorSet* addPinsToLeftMotorSet(){
@@ -47,7 +46,7 @@ MotorSet* addPinsToLeftMotorSet(){
 }
 
 
-// This function adds motors to the right microcontroller
+// This function adds GPIO pins for the right set of the motors
 // Inputs: None
 // Outputs: pointer to the right MotorSet
 MotorSet* addPinsToRightMotorSet(){
@@ -114,59 +113,3 @@ void setUpPWMChannel(int pin, int channel, int frequency, int resolution){
 void writePWMChannel(int channel, int dutyCycle){
     ledcWrite(channel, dutyCycle);
 }
-
-
-///////////////////////////////////////////////////////////////////////////
-// Archived Functions
-///////////////////////////////////////////////////////////////////////////
-// This function sets a pin as a simple output pin
-// Inputs: the pin number to set as an output
-// Outputs: None
-/*
-void setOutputPin(int pin){
-    // Checking that the pin number is in between the max and min GPIO pin values
-    if(pin < MIN_GPIO_PIN || pin > MAX_GPIO_PIN)
-        return;
-    
-    // To set as simple output GPIO_FUNCx_OUT_SEL_CFG = 0x100
-    //      First 8 bits are GPIO_FUNCx_OUT_SEL
-    //volatile unsigned int pinFuncSelReg = GPIO_BASE_ADDRESS + GPIO_FUNCn_OUT_SEL_CFG_REG + 0x4*pin;
-    //pinFuncSelReg &= 0xE00;
-    // pinFuncSelReg |= 0x100;
-    Serial.print(GPIO_FUNC27_OUT_SEL_CFG_REG);
-    Serial.print(" ");
-    GPIO_FUNC27_OUT_SEL_CFG_REG &= 0xE00;
-    GPIO_FUNC27_OUT_SEL_CFG_REG |= 0x100;
-    Serial.print(GPIO_FUNC27_OUT_SEL_CFG_REG);
-    Serial.print(" ");
-    // Set as always enable GPIO_FUNCx_OUT_SEL_CFG
-    //      Set the GPIO_FUNCx_OEN_SEL bit 
-    //pinFuncSelReg |= 0x400;
-    GPIO_FUNC27_OUT_SEL_CFG_REG |= 0x400;
-    Serial.print(GPIO_FUNC27_OUT_SEL_CFG_REG);
-    // Set the bit the GPIO_ENABLE_DATAx in GPIO_ENABLE(1)_REG
-    //volatile unsigned int enableDataReg;
-    
-    if(pin <= 31){
-        //enableDataReg = GPIO_BASE_ADDRESS + GPIO_ENABLE_REG;
-        //enableDataReg |= (unsigned int) power(2, pin);
-        GPIO_ENABLE_REG |= (unsigned int) power(2,pin);
-    } else {
-        //enableDataReg = GPIO_BASE_ADDRESS + GPIO_ENABLE1_REG;
-        //enableDataReg |= (unsigned int) power(2,pin-32);
-    }
-}
-*/
-
-/*
-int power(int base, int exp){
-    // only positive exponents
-    int value = 1;
-
-    if(exp > 0)
-        for(int i = 0; i < exp; i++)
-            value *= base;
-        
-    return value;
-}
-*/

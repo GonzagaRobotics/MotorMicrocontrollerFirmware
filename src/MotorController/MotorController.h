@@ -6,10 +6,9 @@ Date Modified: 2/2/23
 Description: Header file for MotorController
 */
 
+
 #ifndef MOTOR_CONTROLLER_H
 #define MOTOR_CONTROLLER_H
-
-//#include <Arduino.h>
 
 
 /*
@@ -17,18 +16,14 @@ Class: MotorController
 Input: pin 1, pin 2, pwm channel 1, pwm channel 2, and the side the motor is on (left = 'l', right = 'r')
 Output: N/A
 Description: This class represents one motor controller on the board. MotorSet uses and instance of this class for each of its motors
-
 */
-
 class MotorController{
     public:
         MotorController(int, int, char);
 
         void motorForwards(float);
         void motorBackwards(float);
-        //void motorMove(float speed);
         void motorStop();
-
         char getSide();
     private:
         int pin1;
@@ -45,8 +40,6 @@ class MotorController{
 
         int calcDutyCycleForwards(float);
         int calcDutyCycleBackwards(float);
-
-        //float returnAbs(float);
 };
 
 #endif
