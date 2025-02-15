@@ -35,6 +35,11 @@ rclc_support_t support;
 rcl_allocator_t allocator;
 rcl_node_t node;
 
+// Speeds
+int speedFB = 0; // Forward/Backward speed (0 to 200)
+int speedLR = 0; // Left/Right speed (0 to 200)
+int trakEnable=0;
+
 float motor_command_data[2] = {0.0, 0.0};
 #define LEFT_motor_TOPIC "motor_command/left_motor"
 #define RIGHT_motor_TOPIC "motor_command/right_motor"
@@ -66,7 +71,8 @@ void right_motor_subscription_callback(const void * msgin)
 
 void setup() {
   // Configure serial transport
-  Serial.begin(115200);
+  // Serial.begin(115200);
+  Serial.begin(9600);
   set_microros_serial_transports(Serial);
 
   pinMode(LED_PIN, OUTPUT);
@@ -112,9 +118,110 @@ void setup() {
 
 leftMotors = addPinsToLeftMotorSet();
 rightMotors = addPinsToRightMotorSet();
+
+  // Wait for the serial connection to initialize
+  while (!Serial) {
+    ; 
+  }
+
+  // Add a blank line between the initialization nonsense output
+  Serial.println("");
+  Serial.println("Ready.");
 }
 
+// Forward declare for now to make the loop function easier to find
+void parseCommand(String);
+void motorUpdate(int speedFB, int speedLR);
+void motorStop();
+
 void loop() {
-  RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
-  dataHandling(motor_command_data, leftMotors, rightMotors);
+  if (Serial.available() > 0) {
+    // Read the incoming command
+    String input = Serial.readStringUntil('\n');  // Read until newline
+
+    parseCommand(input);
+    motorUpdate(speedFB, speedLR);
+  }
+
+  // RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
+  // dataHandling(motor_command_data, leftMotors, rightMotors);
+}
+
+void parseCommand(String input) { //Pulls out the forard speed and left right speed 
+  // Expected input format: "FB:100 LR:50 EN:1"   (At the moment EN reffers to traction Control only)
+
+  int fbIndex = input.indexOf("FB:");
+  int lrIndex = input.indexOf("LR:");
+  int enIndex = input.indexOf("EN:"); //Enable switch for track module
+
+  if (fbIndex != -1) {
+    int fbEnd = input.indexOf(' ', fbIndex);
+    if (fbEnd == -1) fbEnd = input.length();
+    String fbValue = input.substring(fbIndex + 3, fbEnd);
+    speedFB = fbValue.toInt();
+  }
+
+  if (lrIndex != -1) {
+    int lrEnd = input.indexOf(' ', lrIndex);
+    if (lrEnd == -1) lrEnd = input.length();
+    String lrValue = input.substring(lrIndex + 3, lrEnd);
+    speedLR = lrValue.toInt();
+  }
+
+  if (enIndex != -1) {
+    int enEnd = input.indexOf(' ', enIndex);
+    if (enEnd == -1) enEnd = input.length();
+    String enValue = input.substring(enIndex + 3, enEnd);
+    trakEnable = enValue.toInt();
+  }
+
+} 
+
+
+void motorUpdate(int speedFB, int speedLR) {
+    // Normalize input speeds from 0-200 to -100 to 100
+    double speedFB_normalized = speedFB - 100;
+    double speedLR_normalized = speedLR - 100;
+
+    // Calculate raw motor speeds
+    double leftSpeed = speedFB_normalized - speedLR_normalized;
+    double rightSpeed = speedFB_normalized + speedLR_normalized;
+
+
+    // Constrain motor speeds to valid range (-100 to 100)
+    leftSpeed = constrain(leftSpeed, -100, 100);
+    rightSpeed = constrain(rightSpeed, -100, 100);
+
+
+    // Map motor speeds from -100 to 100 to -1.0 to 1.0
+    leftSpeed = leftSpeed / 100.0;
+    rightSpeed = rightSpeed / 100.0;
+
+    // rightSpeed = 1.0;
+    // leftSpeed = 1.0;
+
+    if (rightSpeed > 0) {
+        rightMotors->driveForwards(rightSpeed);
+    } else {
+        rightMotors->driveBackwards(rightSpeed);
+    }
+    if (leftSpeed > 0) {
+        leftMotors->driveForwards(leftSpeed);
+    } else {
+        leftMotors->driveBackwards(leftSpeed);
+    }
+
+    // Debugging output
+    Serial.print("Left Speed: ");
+    Serial.print(leftSpeed);
+    Serial.print(" Right Speed: ");
+    Serial.println(rightSpeed);
+}
+
+void motorStop() { //Stops the Motor
+  for (int i = 0; i < 3; i++) {
+    rightMotors[i].stop();
+    leftMotors[i].stop();
+  }
+  Serial.println("Motors Stopped");
 }
